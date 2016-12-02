@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:installLocation="preferExternal" package="WorkSphere.Droid" android:versionName="1.0" android:versionCode="1">
+	<uses-sdk android:minSdkVersion="15" android:targetSdkVersion="23" />
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<application android:theme="@style/MyTheme" android:icon="@drawable/icon" android:label="WorkSphere.Droid">
+		<meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyAnqnj4ocLaLE_0-GnV8E_Ex4b9lYLH3bY" />
+		<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
+	</application>
+</manifest>
