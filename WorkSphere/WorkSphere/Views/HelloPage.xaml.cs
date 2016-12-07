@@ -6,6 +6,7 @@ namespace WorkSphere.Views
     {
         public HelloPage()
         {
+            NavigationPage.SetHasNavigationBar(this, false);
             InitializeComponent();
         }
 

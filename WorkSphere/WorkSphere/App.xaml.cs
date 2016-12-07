@@ -11,7 +11,7 @@ namespace WorkSphere
         {
             InitializeComponent();
 
-            NavigationService.NavigateAsync("MainPage");
+            NavigationService.NavigateAsync("PrismMasterDetail");
             
         }
 
@@ -19,6 +19,22 @@ namespace WorkSphere
         {
             Container.RegisterTypeForNavigation<MainPage>();
             Container.RegisterTypeForNavigation<HelloPage>();
+            Container.RegisterTypeForNavigation<PrismMasterDetail>();
+        }
+        
+        protected override void OnStart()
+        {
+            base.OnStart();
+        }
+
+        protected override void OnSleep()
+        {
+            base.OnSleep();
+        }
+        
+        protected override void OnResume()
+        {
+            base.OnResume();
         }
     }
 }

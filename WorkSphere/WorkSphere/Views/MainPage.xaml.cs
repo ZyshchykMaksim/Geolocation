@@ -14,6 +14,8 @@ namespace WorkSphere.Views
 {
     public partial class MainPage : ContentPage
     {
+        private Map _map;
+
         public MainPage()
         {
             InitializeComponent();
@@ -39,14 +41,15 @@ namespace WorkSphere.Views
 
                 if (status == PermissionStatus.Granted)
                 {
-                    var map = new Map()
+                    _map = new Map()
                     {
                         IsShowingUser = false,
                         VerticalOptions = LayoutOptions.FillAndExpand,
                         MapType = MapType.Street
 
                     };
-                    MapContainer.Children.Add(map);
+                    
+                    MapContainer.Children.Add(_map);
 
                     MainPageViewModel viewModel = this.BindingContext as MainPageViewModel;
                     if (viewModel != null)
@@ -63,24 +66,25 @@ namespace WorkSphere.Views
                         geoLocator.AllowsBackgroundUpdates = true;
                         geoLocator.DesiredAccuracy = 50;
 
-                        var listening = geoLocator.StartListeningAsync(1000, 5);
-
-                        if ((listening.Result && geoLocator.IsListening) && (geoLocator.IsGeolocationAvailable && geoLocator.IsGeolocationEnabled))
+                        if (!geoLocator.IsListening)
                         {
-                            geoLocator.PositionChanged += delegate (object sender, PositionEventArgs args)
+                            var listening = await geoLocator.StartListeningAsync(1000, 5);
+
+                            if ((listening && geoLocator.IsListening) &&
+                                (geoLocator.IsGeolocationAvailable && geoLocator.IsGeolocationEnabled))
                             {
-                                map.Pins.Clear();
-                                var position = new Position(args.Position.Latitude, args.Position.Longitude);
-                                var pin = new Pin
+                                geoLocator.PositionChanged += delegate (object sender, PositionEventArgs args)
                                 {
-                                    Type = PinType.Place,
-                                    Position = position,
-                                    Label = "YOU",
-                                    Address = String.Empty
+                                    var position = new Position(args.Position.Latitude, args.Position.Longitude);
+                                    SetMapsPosition(position);
                                 };
-                                map.Pins.Add(pin);
-                                map.MoveToRegion(MapSpan.FromCenterAndRadius(position, Distance.FromMiles(1)));
-                            };
+                            }
+                        }
+                        else
+                        {
+                            Plugin.Geolocator.Abstractions.Position p = await geoLocator.GetPositionAsync(1000);
+                            var position = new Position(p.Latitude, p.Longitude);
+                            SetMapsPosition(position);
                         }
 
                     }
@@ -94,6 +98,24 @@ namespace WorkSphere.Views
             {
             }
 
+        }
+
+
+        private void SetMapsPosition(Position position)
+        {
+            _map.Pins.Clear();
+
+            var zoom = Distance.FromMiles(0.1);
+
+            var pin = new Pin
+            {
+                Type = PinType.Place,
+                Position = position,
+                Label = "YOU",
+                Address = String.Empty
+            };
+            _map.Pins.Add(pin);
+            _map.MoveToRegion(MapSpan.FromCenterAndRadius(position, zoom));
         }
 
     }
