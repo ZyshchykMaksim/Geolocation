@@ -51,6 +51,10 @@ namespace WorkSphere.Droid.Controls
             //Alternative fix would be to check propertyname in OnElementPropertyChanged, and skip if it's BackgroundColor.
             //        if(e.PropertyName != nameof(VisualElement.BackgroundColor))
             //          base.OnElementPropertyChanged(sender, e);
+
+            //HACK Update radius element
+            double radiusEl = Element.CornerRadius;
+            Element.CornerRadius = radiusEl;
         }
     }
 }

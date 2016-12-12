@@ -7,13 +7,33 @@ using System.Linq;
 using Prism.Navigation;
 using WorkSphere.Enums;
 using WorkSphere.Models;
+using Xamarin.Forms;
 
 namespace WorkSphere.ViewModels
 {
     public class CoworkersViewModel : BaseViewModel
     {
-        private INavigationService _navigationService;
-        public ObservableCollection<GroupCoworker> _coworkers = new ObservableCollection<GroupCoworker>();
+        private string _strSearch;
+
+        private readonly INavigationService _navigationService;
+        private readonly List<Coworker> _allCoworkers;
+
+        private ObservableCollection<GroupCoworker> _coworkers = new ObservableCollection<GroupCoworker>();
+
+
+        public string StrSearch
+        {
+            get { return _strSearch; }
+            set
+            {
+                SetProperty(ref _strSearch, value);
+
+                if (String.IsNullOrWhiteSpace(value))
+                {
+                    GroupCoworkers(_allCoworkers);
+                }
+            }
+        }
 
         public ObservableCollection<GroupCoworker> CoworkersGroup
         {
@@ -22,121 +42,156 @@ namespace WorkSphere.ViewModels
         }
 
         public DelegateCommand<Coworker> SelectedItemCommand { get; private set; }
+        public DelegateCommand StrSearchCommand { get; private set; }
 
         public CoworkersViewModel(INavigationService navigationService) : base(navigationService)
         {
             _navigationService = navigationService;
             SelectedItemCommand = new DelegateCommand<Coworker>(SelectedItem);
+            StrSearchCommand = new DelegateCommand(Search, CanSearch);
 
-            List<Coworker> coworkers = new List<Coworker>()
+            _allCoworkers = new List<Coworker>()
             {
                 new Coworker()
                 {
                     SurName = "Baron",
                     LastName = "Alexis",
                     Id = Guid.NewGuid(),
-                    Status = CoworkerStatus.Work
+                    Status = CoworkerStatus.Work,
+                    Image = ImageSource.FromResource("WorkSphere.Images.Users.32.jpg")
                 },
                 new Coworker()
                 {
                     SurName = "Abram",
                     LastName = "Corinne",
                     Id = Guid.NewGuid(),
-                    Status = CoworkerStatus.Work
+                    Status = CoworkerStatus.Work,
+                    Image = ImageSource.FromResource("WorkSphere.Images.Users.65.jpg")
                 },
                 new Coworker()
                 {
                     SurName = "Acosta",
                     LastName = "Tim",
                     Id = Guid.NewGuid(),
-                    Status = CoworkerStatus.On_Break
+                    Status = CoworkerStatus.On_Break,
+                    Image = ImageSource.FromResource("WorkSphere.Images.Users.35.jpg")
                 },
                 new Coworker()
                 {
                     SurName = "Artega",
                     LastName = "Devid",
                     Id = Guid.NewGuid(),
-                    Status = CoworkerStatus.None
+                    Status = CoworkerStatus.None,
+                    Image = ImageSource.FromResource("WorkSphere.Images.Users.62.jpg")
                 },
                 new Coworker()
                 {
                     SurName = "Garza",
                     LastName = "Ruby",
                     Id = Guid.NewGuid(),
-                    Status = CoworkerStatus.Run_Report
+                    Status = CoworkerStatus.Run_Report,
+                    Image = ImageSource.FromResource("WorkSphere.Images.Users.2.jpg")
                 },
                 new Coworker()
                 {
                     SurName = "Matthews",
                     LastName = "Patsy",
                     Id = Guid.NewGuid(),
-                    Status = CoworkerStatus.Work
+                    Status = CoworkerStatus.Work,
+                    Image = ImageSource.FromResource("WorkSphere.Images.Users.47.jpg")
                 },
                 new Coworker()
                 {
                     SurName = "Mitchell",
                     LastName = "Dennis",
                     Id = Guid.NewGuid(),
-                    Status = CoworkerStatus.On_Break
+                    Status = CoworkerStatus.On_Break,
+                    Image = ImageSource.FromResource("WorkSphere.Images.Users.88.jpg")
                 },
                 new Coworker()
                 {
                     SurName = "Frazier",
                     LastName = "Rafael",
                     Id = Guid.NewGuid(),
-                    Status = CoworkerStatus.Work
+                    Status = CoworkerStatus.Work,
+                    Image = ImageSource.FromResource("WorkSphere.Images.Users.94.jpg")
                 },
                 new Coworker()
                 {
                     SurName = "Webb",
                     LastName = "Yvonne",
                     Id = Guid.NewGuid(),
-                    Status = CoworkerStatus.None
+                    Status = CoworkerStatus.None,
+                    Image = ImageSource.FromResource("WorkSphere.Images.Users.96.jpg")
                 },
                 new Coworker()
                 {
                     SurName = "Ward",
                     LastName = "Paula",
                     Id = Guid.NewGuid(),
-                    Status = CoworkerStatus.Work
+                    Status = CoworkerStatus.Work,
+                    Image = ImageSource.FromResource("WorkSphere.Images.Users.3.jpg")
                 },
                 new Coworker()
                 {
                     SurName = "Rice",
                     LastName = "Chester",
                     Id = Guid.NewGuid(),
-                    Status = CoworkerStatus.Run_Report
+                    Status = CoworkerStatus.Run_Report,
+                    Image = ImageSource.FromResource("WorkSphere.Images.Users.71.jpg")
                 },
-                //https://randomuser.me/api/portraits/men/51.jpg
                 new Coworker()
                 {
                     SurName = "Sanchez",
                     LastName = "Theodore",
                     Id = Guid.NewGuid(),
-                    Status = CoworkerStatus.Run_Report
+                    Status = CoworkerStatus.Run_Report,
+                    Image = ImageSource.FromResource("WorkSphere.Images.Users.51.jpg")
                 },
             };
 
-            coworkers.Sort((emp1, emp2) => String.Compare(emp1.SurName, emp2.SurName, StringComparison.Ordinal));
-            foreach (var item in coworkers)
-            {
-                string firstLetter = item.SurName.GetFirstLetter();
-                if (!CoworkersGroup.Any(x => x.FirstInitial.Equals(firstLetter, StringComparison.OrdinalIgnoreCase)))
-                {
-                    GroupCoworker group = new GroupCoworker(firstLetter);
-                    group.Add(item);
+            GroupCoworkers(_allCoworkers);
+        }
 
-                    CoworkersGroup.Add(group);
-                }
-                else
+
+        private void GroupCoworkers(List<Coworker> coworkers)
+        {
+            if (coworkers != null && coworkers.Count > 0)
+            {
+                CoworkersGroup.Clear();
+                coworkers.Sort((emp1, emp2) => String.Compare(emp1.SurName, emp2.SurName, StringComparison.Ordinal));
+                foreach (var item in coworkers)
                 {
-                    var group =
-                        CoworkersGroup.FirstOrDefault(
-                            x => x.FirstInitial.Equals(firstLetter, StringComparison.OrdinalIgnoreCase));
-                    if (group != null)
+                    string firstLetter = item.SurName.GetFirstLetter();
+                    if (!CoworkersGroup.Any(x => x.FirstInitial.Equals(firstLetter, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        GroupCoworker group = new GroupCoworker(firstLetter);
                         group.Add(item);
+
+                        CoworkersGroup.Add(group);
+                    }
+                    else
+                    {
+                        var group =
+                            CoworkersGroup.FirstOrDefault(
+                                x => x.FirstInitial.Equals(firstLetter, StringComparison.OrdinalIgnoreCase));
+                        if (group != null)
+                            group.Add(item);
+                    }
                 }
             }
+        }
+
+
+        private bool CanSearch()
+        {
+            return true;
+        }
+
+        private void Search()
+        {
+            List<Coworker> coworkers = _allCoworkers.Where(x => x.FullName.Contains(StrSearch)).ToList();
+            GroupCoworkers(coworkers);
         }
 
         private void SelectedItem(Coworker coworker)
@@ -157,7 +212,7 @@ namespace WorkSphere.ViewModels
 
         public override void OnNavigatedTo(NavigationParameters parameters)
         {
-         
+
         }
     }
 }

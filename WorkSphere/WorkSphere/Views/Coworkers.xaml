@@ -10,65 +10,72 @@
 
   </ContentPage.Resources>
   <ContentPage.Content>
-    <ListView HasUnevenRows="true" x:Name="MessagesListView"  ItemsSource="{Binding CoworkersGroup}" IsPullToRefreshEnabled="False" GroupDisplayBinding="{Binding FirstInitial}" GroupShortNameBinding="{Binding FirstInitial}" IsGroupingEnabled="True">
-      <ListView.Behaviors>
-        <behaviors:ListViewSelectedItemBehavior Command="{Binding SelectedItemCommand}" Converter="{StaticResource SelectedItemConverter}" />
-      </ListView.Behaviors>
-      <ListView.GroupHeaderTemplate>
-        <DataTemplate>
-          <ViewCell>
-            <Grid Padding="15,8" BackgroundColor="#353f94">
-              <Label Text="{Binding FirstInitial}" VerticalOptions="Start" TextColor="White" FontAttributes="Bold" FontSize="16"  />
-            </Grid>
-          </ViewCell>
-        </DataTemplate>
-      </ListView.GroupHeaderTemplate>
-      <ListView.ItemTemplate>
-        <DataTemplate>
-          <ViewCell>
-            <Grid Padding="15">
-              <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-              </Grid.ColumnDefinitions>
+    <Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="*"/>
+      </Grid.RowDefinitions>
+      <SearchBar Grid.Row="0" Text="{Binding StrSearch}" SearchCommand="{Binding StrSearchCommand}" Placeholder="Search Coworkers"></SearchBar>
+      <ListView Grid.Row="1" HasUnevenRows="true"  x:Name="MessagesListView"  ItemsSource="{Binding CoworkersGroup}" IsPullToRefreshEnabled="False" GroupDisplayBinding="{Binding FirstInitial}" GroupShortNameBinding="{Binding FirstInitial}" IsGroupingEnabled="True">
+        <ListView.Behaviors>
+          <behaviors:ListViewSelectedItemBehavior Command="{Binding SelectedItemCommand}" Converter="{StaticResource SelectedItemConverter}" />
+        </ListView.Behaviors>
+        <ListView.GroupHeaderTemplate>
+          <DataTemplate>
+            <ViewCell>
+              <Grid Padding="15,8" BackgroundColor="#353f94">
+                <Label Text="{Binding FirstInitial}" VerticalOptions="Start" TextColor="White" FontAttributes="Bold" FontSize="16"  />
+              </Grid>
+            </ViewCell>
+          </DataTemplate>
+        </ListView.GroupHeaderTemplate>
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <ViewCell>
+              <Grid Padding="15">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="*"/>
+                  <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
 
-              <StackLayout Grid.Column="0" VerticalOptions="StartAndExpand" Orientation="Horizontal" Margin="0" >
-                <Label Text="{Binding LastName}" TextColor="Black" FontSize="16" Margin="0" VerticalOptions="Center" />
-                <Label Text="{Binding SurName }" TextColor="Black" FontSize="16" Margin="0" VerticalOptions="Center" FontAttributes="Bold" />
-              </StackLayout>
+                <StackLayout Grid.Column="0" VerticalOptions="StartAndExpand" Orientation="Horizontal" Margin="0" >
+                  <Label Text="{Binding LastName}" TextColor="Black" FontSize="16" Margin="0" VerticalOptions="Center" />
+                  <Label Text="{Binding SurName }" TextColor="Black" FontSize="16" Margin="0" VerticalOptions="Center" FontAttributes="Bold" />
+                </StackLayout>
 
-              <StackLayout Grid.Column="1" VerticalOptions="End" Orientation="Horizontal">
+                <StackLayout Grid.Column="1" VerticalOptions="End" Orientation="Horizontal">
 
-                <Label Text="{Binding Status, Converter={StaticResource EnumToStringConverter}}" TextColor="Gray" FontSize="14" Margin="0,0,10,0" VerticalOptions="Center">
-                  <Label.Triggers>
-                    <DataTrigger TargetType="Label" Binding="{Binding Path=Status}" Value="None">
-                      <Setter Property="IsVisible" Value="False"/>
-                    </DataTrigger>
-                  </Label.Triggers>
-                </Label>
+                  <Label Text="{Binding Status, Converter={StaticResource EnumToStringConverter}}" TextColor="Gray" FontSize="14" Margin="0,0,10,0" VerticalOptions="Center">
+                    <Label.Triggers>
+                      <DataTrigger TargetType="Label" Binding="{Binding Path=Status}" Value="None">
+                        <Setter Property="IsVisible" Value="False"/>
+                      </DataTrigger>
+                    </Label.Triggers>
+                  </Label>
 
-                <controls:RoundedBoxView CornerRadius="15"  WidthRequest="15"  HeightRequest="15" VerticalOptions="Center" >
-                  <controls:RoundedBoxView.Triggers>
-                    <DataTrigger TargetType="controls:RoundedBoxView" Binding="{Binding Path=Status}" Value="None">
-                      <Setter Property="BackgroundColor" Value="#BFBFBF"/>
-                    </DataTrigger>
-                    <DataTrigger TargetType="controls:RoundedBoxView" Binding="{Binding Path=Status}" Value="Work">
-                      <Setter Property="BackgroundColor" Value="#4ED872"/>
-                    </DataTrigger>
-                    <DataTrigger TargetType="controls:RoundedBoxView" Binding="{Binding Path=Status}" Value="On_Break">
-                      <Setter Property="BackgroundColor" Value="#FCCD37"/>
-                    </DataTrigger>
-                    <DataTrigger TargetType="controls:RoundedBoxView" Binding="{Binding Path=Status}" Value="Run_Report">
-                      <Setter Property="BackgroundColor" Value="#4ED872"/>
-                    </DataTrigger>
-                  </controls:RoundedBoxView.Triggers>
-                </controls:RoundedBoxView>
+                  <controls:RoundedBoxView CornerRadius="15"  WidthRequest="15"  HeightRequest="15" VerticalOptions="Center" >
+                    <controls:RoundedBoxView.Triggers>
+                      <DataTrigger TargetType="controls:RoundedBoxView" Binding="{Binding Path=Status}" Value="None">
+                        <Setter Property="BackgroundColor" Value="#BFBFBF"/>
+                      </DataTrigger>
+                      <DataTrigger TargetType="controls:RoundedBoxView" Binding="{Binding Path=Status}" Value="Work">
+                        <Setter Property="BackgroundColor" Value="#4ED872"/>
+                      </DataTrigger>
+                      <DataTrigger TargetType="controls:RoundedBoxView" Binding="{Binding Path=Status}" Value="On_Break">
+                        <Setter Property="BackgroundColor" Value="#FCCD37"/>
+                      </DataTrigger>
+                      <DataTrigger TargetType="controls:RoundedBoxView" Binding="{Binding Path=Status}" Value="Run_Report">
+                        <Setter Property="BackgroundColor" Value="#4ED872"/>
+                      </DataTrigger>
+                    </controls:RoundedBoxView.Triggers>
+                  </controls:RoundedBoxView>
 
-              </StackLayout>
-            </Grid>
-          </ViewCell>
-        </DataTemplate>
-      </ListView.ItemTemplate>
-    </ListView>
+                </StackLayout>
+              </Grid>
+            </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+    </Grid>
   </ContentPage.Content>
 </ContentPage>

@@ -41,6 +41,7 @@
     <Compile Include="Converters\SelectedItemEventArgsToSelectedItemConverter.cs" />
     <Compile Include="Enums\CoworkerStatus.cs" />
     <Compile Include="Extensions\ExtensionMethods.cs" />
+    <Compile Include="Extensions\ImageResourceExtension.cs" />
     <Compile Include="Models\Coworker.cs" />
     <Compile Include="Models\GroupCoworker.cs" />
     <Compile Include="Models\Position.cs" />
@@ -158,8 +159,30 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Images\Users\0.jpg" />
+    <EmbeddedResource Include="Images\Users\2.jpg" />
+    <EmbeddedResource Include="Images\Users\25.jpg" />
+    <EmbeddedResource Include="Images\Users\3.jpg" />
+    <EmbeddedResource Include="Images\Users\32.jpg" />
+    <EmbeddedResource Include="Images\Users\35.jpg" />
+    <EmbeddedResource Include="Images\Users\40.jpg" />
+    <EmbeddedResource Include="Images\Users\47.jpg" />
+    <EmbeddedResource Include="Images\Users\51.jpg" />
+    <EmbeddedResource Include="Images\Users\54.jpg" />
+    <EmbeddedResource Include="Images\Users\62.jpg" />
+    <EmbeddedResource Include="Images\Users\65.jpg" />
+    <EmbeddedResource Include="Images\Users\71.jpg" />
+    <EmbeddedResource Include="Images\Users\79.jpg" />
+    <EmbeddedResource Include="Images\Users\88.jpg" />
+    <EmbeddedResource Include="Images\Users\94.jpg" />
+    <EmbeddedResource Include="Images\Users\96.jpg" />
+    <EmbeddedResource Include="Images\Icons\Chat.png" />
+    <EmbeddedResource Include="Images\Icons\Contact.png" />
+    <EmbeddedResource Include="Images\Icons\Location.png" />
+    <EmbeddedResource Include="Images\Icons\Mail.png" />
     <Content Include="problems.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Forms.2.3.3.168\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.3.3.168\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

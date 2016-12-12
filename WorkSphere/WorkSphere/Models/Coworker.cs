@@ -14,6 +14,7 @@ namespace WorkSphere.Models
         private ImageSource _image;
         private CoworkerStatus _status;
 
+
         public Guid Id
         {
             get { return _id; }
