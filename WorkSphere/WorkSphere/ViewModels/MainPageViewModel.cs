@@ -7,8 +7,7 @@ using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
 using Plugin.Geolocator.Abstractions;
-using WorkSphere.Model;
-using GPSPosition = WorkSphere.Model.Position;
+using GPSPosition = WorkSphere.Models.Position;
 
 namespace WorkSphere.ViewModels
 {
@@ -29,8 +28,6 @@ namespace WorkSphere.ViewModels
 
             Title = "Main Page";
             GpsPosition = new GPSPosition(0, 0);
-
-            
         }
 
         public override void OnNavigatedFrom(NavigationParameters parameters)

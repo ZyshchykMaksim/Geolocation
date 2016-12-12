@@ -9,6 +9,7 @@ using Android.OS;
 using Prism.Unity;
 using Microsoft.Practices.Unity;
 using Plugin.Permissions;
+using WorkSphere.Droid.Controls;
 
 namespace WorkSphere.Droid
 {
@@ -23,6 +24,7 @@ namespace WorkSphere.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
+            RoundedBoxViewRenderer.Init();
             LoadApplication(new App(new AndroidInitializer()));
             Xamarin.FormsMaps.Init(this, bundle);
         }

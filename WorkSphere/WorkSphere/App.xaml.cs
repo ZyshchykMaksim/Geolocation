@@ -10,18 +10,19 @@ namespace WorkSphere
         protected override void OnInitialized()
         {
             InitializeComponent();
-
-            NavigationService.NavigateAsync("PrismMasterDetail");
-            
+            NavigationService.NavigateAsync("Coworkers");
         }
 
         protected override void RegisterTypes()
         {
+            Container.RegisterTypeForNavigation<Tabbed>();
+
             Container.RegisterTypeForNavigation<MainPage>();
             Container.RegisterTypeForNavigation<HelloPage>();
-            Container.RegisterTypeForNavigation<PrismMasterDetail>();
+            Container.RegisterTypeForNavigation<Coworkers>();
+            Container.RegisterTypeForNavigation<CoworkerDetails>();
         }
-        
+
         protected override void OnStart()
         {
             base.OnStart();
@@ -31,7 +32,7 @@ namespace WorkSphere
         {
             base.OnSleep();
         }
-        
+
         protected override void OnResume()
         {
             base.OnResume();

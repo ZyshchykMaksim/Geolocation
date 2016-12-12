@@ -21,8 +21,7 @@ namespace WorkSphere.Views
             InitializeComponent();
             Load();
         }
-
-
+        
         public async void Load()
         {
             try

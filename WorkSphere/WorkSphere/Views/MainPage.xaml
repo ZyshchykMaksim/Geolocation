@@ -13,6 +13,5 @@
     <Grid x:Name="MapContainer" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
 
     </Grid>
-
   </StackLayout>
 </ContentPage>

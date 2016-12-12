@@ -35,14 +35,29 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Model\Position.cs" />
+    <Compile Include="Behaviors\ListViewSelectedItemBehavior.cs" />
+    <Compile Include="Controls\RoundedBoxView.cs" />
+    <Compile Include="Converters\EnumToStringConverter.cs" />
+    <Compile Include="Converters\SelectedItemEventArgsToSelectedItemConverter.cs" />
+    <Compile Include="Enums\CoworkerStatus.cs" />
+    <Compile Include="Extensions\ExtensionMethods.cs" />
+    <Compile Include="Models\Coworker.cs" />
+    <Compile Include="Models\GroupCoworker.cs" />
+    <Compile Include="Models\Position.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
-    <Compile Include="ViewModels\HelloPageViewModel.cs" />
+    <Compile Include="ViewModels\CoworkerDetailsViewModel.cs" />
+    <Compile Include="ViewModels\CoworkersViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
-    <Compile Include="ViewModels\PrismMasterDetailViewModel.cs" />
-    <Compile Include="Views\PrismMasterDetail.xaml.cs">
-      <DependentUpon>PrismMasterDetail.xaml</DependentUpon>
+    <Compile Include="ViewModels\TabbedViewModel.cs" />
+    <Compile Include="Views\CoworkerDetails.xaml.cs">
+      <DependentUpon>CoworkerDetails.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Coworkers.xaml.cs">
+      <DependentUpon>Coworkers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Tabbed.xaml.cs">
+      <DependentUpon>Tabbed.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -59,9 +74,6 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <Compile Include="Views\HelloPage.xaml.cs">
-      <DependentUpon>HelloPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -124,13 +136,19 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\HelloPage.xaml">
+    <EmbeddedResource Include="Views\Coworkers.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\PrismMasterDetail.xaml">
+    <EmbeddedResource Include="Views\CoworkerDetails.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Tabbed.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

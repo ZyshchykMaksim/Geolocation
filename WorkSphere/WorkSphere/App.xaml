@@ -2,6 +2,12 @@
 <prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms"
                         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                         xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms"
+                        xmlns:converters="clr-namespace:WorkSphere.Converters;assembly=WorkSphere"
                         x:Class="WorkSphere.App">
-
+  <Application.Resources>
+    <ResourceDictionary>
+      <converters:SelectedItemEventArgsToSelectedItemConverter x:Key="SelectedItemConverter" />
+      <converters:EnumToStringConverter x:Key="EnumToStringConverter"/>
+    </ResourceDictionary>
+  </Application.Resources>
 </prism:PrismApplication>
