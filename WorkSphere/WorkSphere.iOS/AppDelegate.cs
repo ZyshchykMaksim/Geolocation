@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
+using ImageCircle.Forms.Plugin.iOS;
 using UIKit;
 using Prism.Unity;
 using Microsoft.Practices.Unity;
@@ -27,6 +28,7 @@ namespace WorkSphere.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             RoundedBoxViewRenderer.Init();
+            ImageCircleRenderer.Init();
             LoadApplication(new App(new iOSInitializer()));
 
             Xamarin.FormsMaps.Init();

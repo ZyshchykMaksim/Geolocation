@@ -6,6 +6,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using ImageCircle.Forms.Plugin.Droid;
 using Prism.Unity;
 using Microsoft.Practices.Unity;
 using Plugin.Permissions;
@@ -25,6 +26,7 @@ namespace WorkSphere.Droid
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
             RoundedBoxViewRenderer.Init();
+            ImageCircleRenderer.Init();
             LoadApplication(new App(new AndroidInitializer()));
             Xamarin.FormsMaps.Init(this, bundle);
         }

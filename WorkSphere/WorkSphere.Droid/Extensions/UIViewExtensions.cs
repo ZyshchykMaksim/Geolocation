@@ -41,7 +41,7 @@ namespace WorkSphere.Droid.Extensions
         }
 
         public static void UpdateFrom(this View nativeControl, RoundedBoxView formsControl,
-            string propertyChanged)
+          string propertyChanged)
         {
             if (nativeControl == null || formsControl == null)
                 return;
@@ -77,7 +77,7 @@ namespace WorkSphere.Droid.Extensions
 
             if (backgroundGradient != null)
             {
-                var relativeBorderThickness = thickness * 3;
+                var relativeBorderThickness = (int)System.Math.Round(Xamarin.Forms.Forms.Context.ToPixels(thickness)); //#46
                 backgroundGradient.SetStroke(relativeBorderThickness, color.ToAndroid());
             }
         }
@@ -88,7 +88,7 @@ namespace WorkSphere.Droid.Extensions
 
             if (backgroundGradient != null)
             {
-                var relativeCornerRadius = (float)(cornerRadius * 3.7);
+                var relativeCornerRadius = Xamarin.Forms.Forms.Context.ToPixels(cornerRadius); //#46
                 backgroundGradient.SetCornerRadius(relativeCornerRadius);
             }
         }

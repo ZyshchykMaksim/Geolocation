@@ -14,14 +14,21 @@ namespace WorkSphere.ViewModels
     public class CoworkerDetailsViewModel : BaseViewModel
     {
         private INavigationService _navigationService;
-        private Coworker coworker = null;
+        private Coworker _coworker = null;
+        private Color _color;
 
         public Coworker Coworker
         {
-            get { return coworker; }
-            set { SetProperty(ref coworker, value); }
+            get { return _coworker; }
+            set { SetProperty(ref _coworker, value); }
         }
-        
+
+        public Color Color
+        {
+            get { return _color; }
+            set { SetProperty(ref _color, value); }
+        }
+
         public CoworkerDetailsViewModel(INavigationService navigationService) : base(navigationService)
         {
             _navigationService = navigationService;

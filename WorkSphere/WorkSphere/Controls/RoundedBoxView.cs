@@ -9,14 +9,13 @@ namespace WorkSphere.Controls
 {
     public sealed class RoundedBoxView : BoxView
     {
-        public static readonly BindableProperty CornerRadiusProperty = BindableProperty.Create("CornerRadius", typeof(double), typeof(RoundedBoxView), default(double));
-        
+        public static readonly BindableProperty CornerRadiusProperty = BindableProperty.Create<RoundedBoxView, double>(p => p.CornerRadius, 0);
         public double CornerRadius
         {
-            get { return (double)GetValue(CornerRadiusProperty); }
-            set { SetValue(CornerRadiusProperty, value); }
+            get { return (double)base.GetValue(CornerRadiusProperty); }
+            set { base.SetValue(CornerRadiusProperty, value); }
         }
-
+        
         /// <summary>
         /// Thickness property of border
         /// </summary>

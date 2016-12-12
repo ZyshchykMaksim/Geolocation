@@ -1,0 +1,2 @@
+﻿Change background color, change the shape to rectangle
+https://github.com/paulpatarinski/Xamarin.Forms.Plugins/issues/100

@@ -16,9 +16,7 @@ namespace WorkSphere
         protected override void RegisterTypes()
         {
             Container.RegisterTypeForNavigation<Tabbed>();
-
             Container.RegisterTypeForNavigation<MainPage>();
-            Container.RegisterTypeForNavigation<HelloPage>();
             Container.RegisterTypeForNavigation<Coworkers>();
             Container.RegisterTypeForNavigation<CoworkerDetails>();
         }
