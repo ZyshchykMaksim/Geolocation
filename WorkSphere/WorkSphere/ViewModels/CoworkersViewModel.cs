@@ -14,6 +14,7 @@ namespace WorkSphere.ViewModels
     public class CoworkersViewModel : BaseViewModel
     {
         private string _strSearch;
+        private bool _isRefreshing;
 
         private readonly INavigationService _navigationService;
         private readonly List<Coworker> _allCoworkers;
@@ -27,11 +28,20 @@ namespace WorkSphere.ViewModels
             {
                 SetProperty(ref _strSearch, value);
 
+                IsBusy = true;
                 if (String.IsNullOrWhiteSpace(value))
                     GroupCoworkers(_allCoworkers);
                 else
-                    SearchCoworkers();
+                    SearchCoworkers(value);
+                IsBusy = false;
             }
+        }
+
+
+        public bool IsRefreshing
+        {
+            get { return _isRefreshing; }
+            set { SetProperty(ref _isRefreshing, value); }
         }
 
         public ObservableCollection<GroupCoworker> CoworkersGroup
@@ -40,9 +50,12 @@ namespace WorkSphere.ViewModels
             set { SetProperty(ref _coworkers, value); }
         }
 
+
         public DelegateCommand<Coworker> SelectedItemCommand => new DelegateCommand<Coworker>(SelectedItem);
 
         public DelegateCommand StrSearchCommand => new DelegateCommand(Search, CanSearch);
+
+        public DelegateCommand RefreshCommand => new DelegateCommand(Refresh, CanRefresh);
 
 
         public CoworkersViewModel(INavigationService navigationService) : base(navigationService)
@@ -153,10 +166,13 @@ namespace WorkSphere.ViewModels
         }
 
 
-        private void SearchCoworkers()
+        private void SearchCoworkers(string strSearch)
         {
-            List<Coworker> coworkers = _allCoworkers.Where(x => x.FullName.Contains(StrSearch, StringComparison.OrdinalIgnoreCase)).ToList();
-            GroupCoworkers(coworkers);
+            if (!String.IsNullOrEmpty(strSearch))
+            {
+                List<Coworker> coworkers = _allCoworkers.Where(x => x.FullName.Contains(strSearch, StringComparison.OrdinalIgnoreCase)).ToList();
+                GroupCoworkers(coworkers);
+            }
         }
 
         private void GroupCoworkers(List<Coworker> coworkers)
@@ -197,6 +213,21 @@ namespace WorkSphere.ViewModels
         {
             //SearchCoworkers();
         }
+
+        private bool CanRefresh()
+        {
+            return true;
+        }
+
+        private void Refresh()
+        {
+            if (String.IsNullOrWhiteSpace(StrSearch))
+                GroupCoworkers(_allCoworkers);
+            else
+                SearchCoworkers(StrSearch);
+            IsRefreshing = false;
+        }
+
 
         private void SelectedItem(Coworker coworker)
         {

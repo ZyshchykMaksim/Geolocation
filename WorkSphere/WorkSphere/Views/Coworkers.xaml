@@ -13,10 +13,12 @@
     <Grid>
       <Grid.RowDefinitions>
         <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
         <RowDefinition Height="*"/>
       </Grid.RowDefinitions>
       <SearchBar Grid.Row="0" Text="{Binding StrSearch}" SearchCommand="{Binding StrSearchCommand}" Placeholder="Search Coworkers"></SearchBar>
-      <ListView Grid.Row="1" HasUnevenRows="true"  x:Name="MessagesListView"  ItemsSource="{Binding CoworkersGroup}" IsPullToRefreshEnabled="False" GroupDisplayBinding="{Binding FirstInitial}" GroupShortNameBinding="{Binding FirstInitial}" IsGroupingEnabled="True">
+      <ActivityIndicator Grid.Row="1" Color="#9F9F9F" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+      <ListView Grid.Row="2" HasUnevenRows="true"  x:Name="MessagesListView"  ItemsSource="{Binding CoworkersGroup}" IsPullToRefreshEnabled="True" RefreshCommand="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}"  GroupDisplayBinding="{Binding FirstInitial}" GroupShortNameBinding="{Binding FirstInitial}" IsGroupingEnabled="True">
         <ListView.Behaviors>
           <behaviors:ListViewSelectedItemBehavior Command="{Binding SelectedItemCommand}" Converter="{StaticResource SelectedItemConverter}" />
         </ListView.Behaviors>
