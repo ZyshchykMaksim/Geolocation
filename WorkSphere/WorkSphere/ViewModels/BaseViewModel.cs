@@ -14,6 +14,7 @@ namespace WorkSphere.ViewModels
     public abstract class BaseViewModel : BindableBase, INavigationAware
     {
         private string _title = String.Empty;
+        private bool _isBusy = false;
 
         private INavigationService _navigationService = null;
 
@@ -21,6 +22,12 @@ namespace WorkSphere.ViewModels
         {
             get { return _title; }
             set { SetProperty(ref _title, value); }
+        }
+
+        public bool IsBusy
+        {
+            get { return _isBusy; }
+            set { SetProperty(ref _isBusy, value); }
         }
 
         protected BaseViewModel(INavigationService navigationService)

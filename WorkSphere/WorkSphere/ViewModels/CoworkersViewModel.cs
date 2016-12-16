@@ -20,7 +20,6 @@ namespace WorkSphere.ViewModels
 
         private ObservableCollection<GroupCoworker> _coworkers = new ObservableCollection<GroupCoworker>();
 
-
         public string StrSearch
         {
             get { return _strSearch; }
@@ -29,9 +28,9 @@ namespace WorkSphere.ViewModels
                 SetProperty(ref _strSearch, value);
 
                 if (String.IsNullOrWhiteSpace(value))
-                {
                     GroupCoworkers(_allCoworkers);
-                }
+                else
+                    SearchCoworkers();
             }
         }
 
@@ -41,14 +40,14 @@ namespace WorkSphere.ViewModels
             set { SetProperty(ref _coworkers, value); }
         }
 
-        public DelegateCommand<Coworker> SelectedItemCommand { get; private set; }
-        public DelegateCommand StrSearchCommand { get; private set; }
+        public DelegateCommand<Coworker> SelectedItemCommand => new DelegateCommand<Coworker>(SelectedItem);
+
+        public DelegateCommand StrSearchCommand => new DelegateCommand(Search, CanSearch);
+
 
         public CoworkersViewModel(INavigationService navigationService) : base(navigationService)
         {
             _navigationService = navigationService;
-            SelectedItemCommand = new DelegateCommand<Coworker>(SelectedItem);
-            StrSearchCommand = new DelegateCommand(Search, CanSearch);
 
             _allCoworkers = new List<Coworker>()
             {
@@ -154,9 +153,15 @@ namespace WorkSphere.ViewModels
         }
 
 
+        private void SearchCoworkers()
+        {
+            List<Coworker> coworkers = _allCoworkers.Where(x => x.FullName.Contains(StrSearch, StringComparison.OrdinalIgnoreCase)).ToList();
+            GroupCoworkers(coworkers);
+        }
+
         private void GroupCoworkers(List<Coworker> coworkers)
         {
-            if (coworkers != null && coworkers.Count > 0)
+            if (coworkers != null)
             {
                 CoworkersGroup.Clear();
                 coworkers.Sort((emp1, emp2) => String.Compare(emp1.SurName, emp2.SurName, StringComparison.Ordinal));
@@ -190,8 +195,7 @@ namespace WorkSphere.ViewModels
 
         private void Search()
         {
-            List<Coworker> coworkers = _allCoworkers.Where(x => x.FullName.Contains(StrSearch)).ToList();
-            GroupCoworkers(coworkers);
+            //SearchCoworkers();
         }
 
         private void SelectedItem(Coworker coworker)
