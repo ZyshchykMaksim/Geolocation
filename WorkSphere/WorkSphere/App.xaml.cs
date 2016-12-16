@@ -1,4 +1,7 @@
-﻿using Prism.Unity;
+﻿using Microsoft.Practices.Unity;
+using Prism.Unity;
+using WorkSphere.Interfaces;
+using WorkSphere.Services;
 using WorkSphere.Views;
 
 namespace WorkSphere
@@ -19,6 +22,8 @@ namespace WorkSphere
             Container.RegisterTypeForNavigation<MainPage>();
             Container.RegisterTypeForNavigation<Coworkers>();
             Container.RegisterTypeForNavigation<CoworkerDetails>();
+
+            Container.RegisterType<IDataService, DataService>();
         }
 
         protected override void OnStart()
