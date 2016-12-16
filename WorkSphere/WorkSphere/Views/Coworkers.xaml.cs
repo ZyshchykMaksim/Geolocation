@@ -7,6 +7,13 @@ namespace WorkSphere.Views
         public Coworkers()
         {
             InitializeComponent();
+            CoworkersListView.ItemSelected += delegate (object sender, SelectedItemChangedEventArgs args)
+            {
+                if (args.SelectedItem == null)
+                    return;
+
+                ((ListView)sender).SelectedItem = null;
+            };
         }
     }
 }

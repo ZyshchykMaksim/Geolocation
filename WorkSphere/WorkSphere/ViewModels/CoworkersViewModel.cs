@@ -98,9 +98,7 @@ namespace WorkSphere.ViewModels
                     }
                     else
                     {
-                        var group =
-                            CoworkersGroup.FirstOrDefault(
-                                x => x.FirstInitial.Equals(firstLetter, StringComparison.OrdinalIgnoreCase));
+                        var group = CoworkersGroup.FirstOrDefault(x => x.FirstInitial.Equals(firstLetter, StringComparison.OrdinalIgnoreCase));
                         if (group != null)
                             group.Add(item);
                     }
@@ -109,20 +107,11 @@ namespace WorkSphere.ViewModels
         }
 
 
-        private bool CanSearch()
-        {
-            return true;
-        }
+        private bool CanSearch() { return true; }
 
-        private void Search()
-        {
-            //SearchCoworkers();
-        }
+        private void Search() { }
 
-        private bool CanRefresh()
-        {
-            return true;
-        }
+        private bool CanRefresh() { return true; }
 
         private void Refresh()
         {
